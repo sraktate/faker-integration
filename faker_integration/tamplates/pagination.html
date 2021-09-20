@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>Show Fake data Page</title>
+{% endblock %}
+{% block content %}
+<div style="width: 70%; margin: 3% 15%;">
+    <h3 style="text-align: center;">Student List......</h3><br>
+    <table border="2px" class="table table-success">
+        <tr style="text-align: center;color:tomato;">
+            <th>Student Roll_No</th>
+            <th>Student Name</th>
+            <th>Student Address</th>
+            <th>Student Marks</th>
+        </tr>
+        {% for i in obj %}
+            <tr style="text-align: center;">
+                <td>{{i.rollno}}</td>
+                <td>{{i.name}}</td>
+                <td>{{i.address}}</td>
+                <td>{{i.marks}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+<div class="pagination">
+    <div class="step-links">
+        <span class="current" style="color:tomato;">
+            <b>Page {{obj.number}} of {{obj.paginator.num_pages}}</b>
+        </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span>
+            {% if obj.has_previous %}
+                <a href="{% url 'pagination' %}?page=1"><button class="btn btn-secondary">First</button></a>
+                <a href="{% url 'pagination' %}?page={{obj.previous_page_number}}"><button class="btn btn-secondary">Previous</button></a>
+            {% endif %}
+
+
+            {% if obj.has_next %}
+            <a href="{% url 'pagination' %}?page={{obj.next_page_number}}"><button class="btn btn-secondary">Next</button></a>
+            <a href="{% url 'pagination' %}?page={{obj.paginator.num_pages}}"><button class="btn btn-secondary">Last</button></a>
+            {% endif %}
+            </span>
+    </div>
+</div><br><br><br>
+{% endblock %}
